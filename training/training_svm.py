@@ -27,9 +27,9 @@ import seaborn as sns
 
 # ===== CONFIG =====
 ENCODED_CSV = "/Users/yiming/Documents/Sunway/Sem 9/FYP2/Code/career_recommendation/data/cleaned datasets/encoded_combined_datasets.csv"
-MODEL_OUTPUT = "/Users/yiming/Documents/Sunway/Sem 9/FYP2/Code/career_recommendation/training/models/svm3/svm_tfidf_skill_model_fixed.pkl"
-VECT_OUTPUT = "/Users/yiming/Documents/Sunway/Sem 9/FYP2/Code/career_recommendation/training/models/svm3/tfidf_vectorizer_fixed.pkl"
-LE_OUTPUT = "/Users/yiming/Documents/Sunway/Sem 9/FYP2/Code/career_recommendation/training/models/svm3/label_encoder_fixed.pkl"
+MODEL_OUTPUT = "/Users/yiming/Documents/Sunway/Sem 9/FYP2/Code/career_recommendation/training/models/svm/svm_tfidf_skill_model_fixed.pkl"
+VECT_OUTPUT = "/Users/yiming/Documents/Sunway/Sem 9/FYP2/Code/career_recommendation/training/models/svm/tfidf_vectorizer_fixed.pkl"
+LE_OUTPUT = "/Users/yiming/Documents/Sunway/Sem 9/FYP2/Code/career_recommendation/training/models/svm/label_encoder_fixed.pkl"
 TFIDF_MAX_FEATURES = 2000
 TFIDF_NGRAM_RANGE = (1, 2)
 TEST_SIZE = 0.2
@@ -214,19 +214,6 @@ plt.yticks(rotation=0, fontsize=9)
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "confusion_matrix_full.png"), dpi=150)
 plt.show()
-
-# ===== TOP CONFUSED PAIRS =====
-pairs = []
-for i in range(n_labels):
-    for j in range(n_labels):
-        if i != j and cm_raw[i, j] > 0:
-            pairs.append((int(cm_raw[i, j]), le.classes_[i], le.classes_[j]))
-
-pairs_sorted = sorted(pairs, reverse=True, key=lambda x: x[0])
-top_k_pairs = 20
-print(f"\nTop {min(top_k_pairs, len(pairs_sorted))} confused pairs (count, true -> predicted):")
-for cnt, true_lbl, pred_lbl in pairs_sorted[:top_k_pairs]:
-    print(f"{cnt:3d}   {true_lbl}  ->  {pred_lbl}")
 
 # ===== SAVE ARTIFACTS =====
 for path, obj, name in zip(

@@ -1,0 +1,17 @@
+# Datasets
+data/
+*.csv
+*.xlsx
+*.json
+
+# Trained models
+*.pkl
+*.joblib
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
